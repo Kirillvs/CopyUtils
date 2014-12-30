@@ -21,7 +21,7 @@ public class TestClass {
 	
 	public void modification(){
 		first = 100500;
-		second = "Сто пятцот!!!";
+		second = "Сто";
 		third = false;
 	}
 	

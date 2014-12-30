@@ -1,6 +1,7 @@
 package com.archipov.utils;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 public class CopyUtils {
@@ -14,10 +15,11 @@ public class CopyUtils {
 		try {
 			Constructor<T> constructor = getCompliteConstructor(rezClass);
 			//getParamsObjForConstructor(rezClass);
-			System.out.println("|\\-/| " + rezClass.getDeclaredField("second"));
+			//System.out.println("|\\-/| " + rezClass.getDeclaredField("second"));
 			Object[] args = {5, "five", false};
 			
 			finObj = (T) constructor.newInstance(getParamsObjForConstructor(rezClass));
+			copyFields(rezClass, obj, finObj);
 
 		} catch (InstantiationException e) {
 			e.printStackTrace();
@@ -31,8 +33,6 @@ public class CopyUtils {
 			e.printStackTrace();
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
 		}
 		return finObj;
 	}
@@ -42,7 +42,7 @@ public class CopyUtils {
 		Class[] params = new Class[ourClass.getConstructors()[0].getParameterCount()];
 		for(int i = 0; i < ourClass.getConstructors()[0].getParameterCount(); i++){
 			params[i] = ourClass.getConstructors()[0].getParameterTypes()[i];
-			System.out.println(i + " -> " + params[i]);
+			//System.out.println(i + " -> " + params[i]);
 		}
 		constructor = ourClass.getConstructor(params);
 		constructor.setAccessible(true);
@@ -69,7 +69,11 @@ public class CopyUtils {
 		return objParams;
 	}
 	
-	private static <T> void copyFields(Class ourClass, T srcObj, T finObj){
-		
+	private static <T> void copyFields(Class ourClass, T srcObj, T finObj) throws IllegalArgumentException, IllegalAccessException{
+		Field[] fields = ourClass.getDeclaredFields();
+		for(int i = 0; i < fields.length; i++){
+			fields[i].setAccessible(true);
+			fields[i].set(finObj, fields[i].get(srcObj));
+		}
 	}
 }
