@@ -3,7 +3,8 @@ package com.archipov.utils;
 public class MainTest {
 
 	public static void main(String[] args) {
-
+		
+		
 		TestClass firstClass = new TestClass(50, "ֿÿעüהוסÿע", true);
 
 		TestClass secondClass;
@@ -20,13 +21,13 @@ public class MainTest {
 		System.out.println("|---|---|---|---|---|");
 		System.out.println("");
 		
-		String firstString = "Asd";
+		Integer firstString = 5;
 		System.out.println(firstString);
-		String secondString = CopyUtils.deepCopy(firstString);
+		Integer secondString = CopyUtils.deepCopy(firstString);
 		System.out.println("-----------------");
 		System.out.println(firstString);
 		System.out.println(secondString);
-
+		
 
 
 	}

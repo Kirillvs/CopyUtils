@@ -49,18 +49,22 @@ public class CopyUtils {
 		return constructor;		
 	}
 	
-	private static Object[] getParamsObjForConstructor(Class ourClass){
-		Object[] objParams = new Object[ourClass.getConstructors()[0].getParameterCount()];
-		for(int i = 0; i < ourClass.getConstructors()[0].getParameterCount(); i++){
+	private static Object[] getParamsObjForConstructor(Class ourClass) throws NoSuchMethodException, SecurityException{
+		Constructor constuctor = null;
+		constuctor = ourClass.getConstructors()[0];
+		constuctor.setAccessible(true);
+		//constuctor = ourClass.getDeclaredConstructor(null);
+		Object[] objParams = new Object[constuctor.getParameterCount()];
+		for(int i = 0; i < constuctor.getParameterCount(); i++){
 			System.out.println("------>>>>>>>>> " + ourClass.getConstructors()[0].getParameters()[i].getType());
-			if(ourClass.getConstructors()[0].getParameters()[i].getType().toString().equals("int") ||
-					ourClass.getConstructors()[0].getParameters()[i].getType().toString().equals("double") ||
-					ourClass.getConstructors()[0].getParameters()[i].getType().toString().equals("float") ||
-					ourClass.getConstructors()[0].getParameters()[i].getType().toString().equals("byte") ||
-					ourClass.getConstructors()[0].getParameters()[i].getType().toString().equals("char") || 
-					ourClass.getConstructors()[0].getParameters()[i].getType().toString().equals("long")){
+			if(constuctor.getParameters()[i].getType().toString().equals("int") ||
+					constuctor.getParameters()[i].getType().toString().equals("double") ||
+					constuctor.getParameters()[i].getType().toString().equals("float") ||
+					constuctor.getParameters()[i].getType().toString().equals("byte") ||
+					constuctor.getParameters()[i].getType().toString().equals("char") || 
+					constuctor.getParameters()[i].getType().toString().equals("long")){
 				objParams[i] = 0;
-			}else if(ourClass.getConstructors()[0].getParameters()[i].getType().toString().equals("boolean")){
+			}else if(constuctor.getParameters()[i].getType().toString().equals("boolean")){
 				objParams[i] = false;
 			}else{
 				objParams[i] = null;
