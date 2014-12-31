@@ -15,8 +15,6 @@ public class CopyUtils {
 		rezClass.cast(finObj);
 		try {
 			Constructor<T> constructor = getCompliteConstructor(rezClass);
-			//getParamsObjForConstructor(rezClass);
-			//System.out.println("|\\-/| " + rezClass.getDeclaredField("second"));
 			Object[] args = {5, "five", false};
 			
 			finObj = (T) constructor.newInstance(getParamsObjForConstructor(rezClass));
@@ -33,6 +31,9 @@ public class CopyUtils {
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return finObj;
@@ -57,7 +58,6 @@ public class CopyUtils {
 		//constuctor = ourClass.getDeclaredConstructor(null);
 		Object[] objParams = new Object[constuctor.getParameterCount()];
 		for(int i = 0; i < constuctor.getParameterCount(); i++){
-			System.out.println("------>>>>>>>>> " + ourClass.getConstructors()[0].getParameters()[i].getType());
 			if(constuctor.getParameters()[i].getType().toString().equals("int") ||
 					constuctor.getParameters()[i].getType().toString().equals("double") ||
 					constuctor.getParameters()[i].getType().toString().equals("float") ||
@@ -74,10 +74,14 @@ public class CopyUtils {
 		return objParams;
 	}
 	
-	private static <T> void copyFields(Class ourClass, T srcObj, T finObj) throws IllegalArgumentException, IllegalAccessException{
+	private static <T> void copyFields(Class ourClass, T srcObj, T finObj) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException{
 		Field[] fields = ourClass.getDeclaredFields();
 		for(int i = 0; i < fields.length; i++){
 			fields[i].setAccessible(true);
+			Field modField = Field.class.getDeclaredField("modifiers");
+			System.out.println("------>>>>>>>>> " + modField.getName() + "___" );
+			modField.setAccessible(true);
+			modField.setInt(fields[i], fields[i].getModifiers() & ~Modifier.FINAL);
 			fields[i].set(finObj, fields[i].get(srcObj));
 		}
 	}
@@ -85,12 +89,10 @@ public class CopyUtils {
 	
 	//Взято со Stackoverflow http://stackoverflow.com/questions/3301635/change-private-static-final-field-using-java-reflection
 	static void setFinalStaticField(Field field, Object newValue) throws Exception {
-		field.setAccessible(true);
-		
+		field.setAccessible(true);		
 		Field modifiersField = Field.class.getDeclaredField("modifiers");
 		modifiersField.setAccessible(true);
 		modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
 		field.set(null, newValue);
 	}
 }

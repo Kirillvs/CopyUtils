@@ -21,15 +21,16 @@ public class MainTest {
 		System.out.println("|---|---|---|---|---|");
 		System.out.println("");
 		
-		Integer firstString = 5;
+		String firstString = "FIRST!!!!";
 		System.out.println(firstString);
-		Integer secondString = CopyUtils.deepCopy(firstString);
+		String secondString = CopyUtils.deepCopy(firstString);
 		System.out.println("-----------------");
 		System.out.println(firstString);
 		System.out.println(secondString);
-		
-
-
+		System.out.println("----Изменение 1-го-----");
+		firstString = "MODiF!!!";
+		System.out.println(firstString);
+		System.out.println(secondString);
 	}
 
 }
