@@ -16,6 +16,23 @@ public class MainTest {
 		firstClass.printData();
 		secondClass.printData();
 		System.out.println("");
+		
+		System.out.println("|---|---|---|---|---|");
+		System.out.println("|--Отработка Integr-|");
+		System.out.println("|---|---|---|---|---|");
+		System.out.println("");
+		
+		Integer firstInteger = 5;
+		System.out.println(firstInteger);
+		Integer secondInteger = CopyUtils.deepCopy(firstInteger);
+		System.out.println("-----------------");
+		System.out.println(firstInteger);
+		System.out.println(secondInteger);
+		System.out.println("----Изменение 1-го-----");
+		firstInteger = firstInteger - 1;
+		System.out.println(firstInteger);
+		System.out.println(secondInteger);
+
 		System.out.println("|---|---|---|---|---|");
 		System.out.println("|--Отработка String-|");
 		System.out.println("|---|---|---|---|---|");
