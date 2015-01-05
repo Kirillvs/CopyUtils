@@ -2,7 +2,7 @@ package com.archipov.utils;
 
 import java.util.ArrayList;
 
-public class MainTest {
+public class Main {
 
 	public static void main(String[] args) {
 		
@@ -19,6 +19,7 @@ public class MainTest {
 		secondClass.printData();
 		System.out.println("");
 		
+		/*
 		System.out.println("|---|---|---|---|---|");
 		System.out.println("|--Отработка Integr-|");
 		System.out.println("|---|---|---|---|---|");
@@ -72,7 +73,7 @@ public class MainTest {
 		System.out.println("----Изменение 1-го-----");
 		System.out.println(firstArray);
 		System.out.println(secondArray);
-
+		*/
 
 	}
 

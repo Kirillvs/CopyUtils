@@ -49,11 +49,11 @@ public class CopyUtils {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static ArrayList<?> arrayListHandler(ArrayList<?> obj) {
 		ArrayList srcList = obj;
-		ArrayList desList = new ArrayList();
+		ArrayList finList = new ArrayList();
 		for(int i = 0; i < srcList.size(); i ++){
-			desList.add(CopyUtils.deepCopy(srcList.get(i)));
+			finList.add(CopyUtils.deepCopy(srcList.get(i)));
 		}
-		return desList;
+		return finList;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

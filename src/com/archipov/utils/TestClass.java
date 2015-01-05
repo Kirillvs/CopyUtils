@@ -25,8 +25,9 @@ public class TestClass {
 		third = false;
 	}
 	
-	public void printData(){
+	public String printData(){
 		System.out.println(first + " | " + second + " | " + third);
+		return first + " | " + second + " | " + third;
 	}
 
 }
