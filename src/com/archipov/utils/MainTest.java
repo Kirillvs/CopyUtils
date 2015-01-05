@@ -1,5 +1,7 @@
 package com.archipov.utils;
 
+import java.util.ArrayList;
+
 public class MainTest {
 
 	public static void main(String[] args) {
@@ -48,6 +50,30 @@ public class MainTest {
 		firstString = "MODiF!!!";
 		System.out.println(firstString);
 		System.out.println(secondString);
+		
+		System.out.println("|---|---|---|---|---|");
+		System.out.println("|Отработка ArrayList|");
+		System.out.println("|---|---|---|---|---|");
+		System.out.println("");
+		
+		ArrayList<String> firstArray = new ArrayList<>();
+		firstArray.add("first1");
+		firstArray.add("first2");
+		firstArray.add("first3");
+		firstArray.add("first4");		
+		System.out.println(firstArray);		
+		ArrayList<String> secondArray = CopyUtils.deepCopy(firstArray);
+		System.out.println("-----------------");
+		System.out.println(firstArray);
+		System.out.println(secondArray);
+		for(int i = 0; i < secondArray.size(); i ++){
+			secondArray.set(i, "Mod" + i);
+		}
+		System.out.println("----Изменение 1-го-----");
+		System.out.println(firstArray);
+		System.out.println(secondArray);
+
+
 	}
 
 }

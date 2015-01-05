@@ -4,18 +4,25 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 
 public class CopyUtils {
 	
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T>T deepCopy(T obj){
+		if(obj instanceof String){
+			return (T) new String((String) obj);
+		}else if (obj instanceof ArrayList<?>) {
+			return (T) arrayListHandler((ArrayList<?>) obj);
+		}
 		
 		T finObj = null;
 		Class rezClass = obj.getClass();
 		rezClass.cast(finObj);
 		try {
 			Constructor<T> constructor = getCompliteConstructor(rezClass);
-			Object[] args = {5, "five", false};
+			//Object[] args = {5, "five", false};
 			
 			finObj = (T) constructor.newInstance(getParamsObjForConstructor(rezClass));
 			copyFields(rezClass, obj, finObj);
@@ -39,6 +46,17 @@ public class CopyUtils {
 		return finObj;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private static ArrayList<?> arrayListHandler(ArrayList<?> obj) {
+		ArrayList srcList = obj;
+		ArrayList desList = new ArrayList();
+		for(int i = 0; i < srcList.size(); i ++){
+			desList.add(CopyUtils.deepCopy(srcList.get(i)));
+		}
+		return desList;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static Constructor getCompliteConstructor(Class ourClass) throws NoSuchMethodException, SecurityException{
 		Constructor constructor = null;
 		Class[] params = new Class[ourClass.getConstructors()[0].getParameterCount()];
@@ -51,6 +69,7 @@ public class CopyUtils {
 		return constructor;		
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private static Object[] getParamsObjForConstructor(Class ourClass) throws NoSuchMethodException, SecurityException{
 		Constructor constuctor = null;
 		constuctor = ourClass.getConstructors()[0];
@@ -74,6 +93,7 @@ public class CopyUtils {
 		return objParams;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private static <T> void copyFields(Class ourClass, T srcObj, T finObj) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException{
 		Field[] fields = ourClass.getDeclaredFields();
 		for(int i = 0; i < fields.length; i++){
