@@ -6,18 +6,13 @@ import static org.hamcrest.core.IsNot.*;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.archipov.utils.CopyUtils;
 import com.archipov.utils.TestClass;
 
-public class CopyUtilsTest {
+public class TestCopyUtils {
 	
-	@Before
-	public void setUp(){
-		
-	}
 	
 	@Test
 	public void testDeepCopy() {
@@ -39,7 +34,7 @@ public class CopyUtilsTest {
 		assertNotEquals(firstInteger, secondInteger);
 		
 		//3 Проверка копирования объектов String
-		String firstString = "FIRST!!!!";
+		String firstString = "First";
 		String secondString = CopyUtils.deepCopy(firstString);
 		assertEquals(firstString, secondString);
 		assertNotSame(firstString, secondString);
@@ -64,7 +59,13 @@ public class CopyUtilsTest {
 		for(int i = 0; i < secondArray.size(); i ++){
 			assertNotEquals(firstArray.get(i), secondArray.get(i));
 		}
-
+		
+		//5. HashMap
+		//6. TreeMap
+		//7. LinkedList
+		//8. HashSet
+		//9. Set Map
+		//10. Collection
 
 
 
