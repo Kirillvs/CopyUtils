@@ -5,6 +5,7 @@ import static org.hamcrest.core.Is.*;
 import static org.hamcrest.core.IsNot.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Test;
 
@@ -61,6 +62,17 @@ public class TestCopyUtils {
 		}
 		
 		//5. HashMap
+		HashMap<String, Integer> firstHashMap = new HashMap<>();
+		firstHashMap.put("First", 1);
+		firstHashMap.put("Second", 2);
+		firstHashMap.put("Third", 3);		
+		HashMap<String, Integer> secondHashMap = CopyUtils.deepCopy(firstHashMap);
+		assertNotSame(firstHashMap, secondHashMap);
+		assertNotSame(firstHashMap.get("First"), secondHashMap.get("First"));
+		assertNotSame(firstHashMap.get("Second"), secondHashMap.get("Second"));
+		assertNotSame(firstHashMap.get("Third"), secondHashMap.get("Third"));
+
+		
 		//6. TreeMap
 		//7. LinkedList
 		//8. HashSet

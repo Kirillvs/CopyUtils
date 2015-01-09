@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CopyUtils {
 	
@@ -15,6 +17,9 @@ public class CopyUtils {
 			return (T) new String((String) obj);
 		}else if (obj instanceof ArrayList<?>) {
 			return (T) arrayListHandler((ArrayList<?>) obj);
+		}else if (obj instanceof Map<?, ?>){
+			System.out.println("sad");
+			return (T) mapHandler((Map<?, ?>) obj);
 		}
 		
 		T finObj = null;
@@ -54,6 +59,20 @@ public class CopyUtils {
 			finList.add(CopyUtils.deepCopy(srcList.get(i)));
 		}
 		return finList;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private static <K, V> Map<K, V> mapHandler(Map<K, V> obj){
+		Map<K, V> src = obj;
+		Map<K, V> fin = new HashMap<>();
+		for(Map.Entry entry:src.entrySet()){
+			K key = (K) CopyUtils.deepCopy(entry.getKey());
+			V value = (V) CopyUtils.deepCopy(entry.getValue());
+			fin.put(key, value);
+		}
+		
+		
+		return null;		
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
