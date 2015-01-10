@@ -64,15 +64,14 @@ public class CopyUtils {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static <K, V> Map<K, V> mapHandler(Map<K, V> obj){
 		Map<K, V> src = obj;
-		Map<K, V> fin = new HashMap<>();
+		Map<K, V> fin = new HashMap<K, V>();
 		for(Map.Entry entry:src.entrySet()){
 			K key = (K) CopyUtils.deepCopy(entry.getKey());
 			V value = (V) CopyUtils.deepCopy(entry.getValue());
+			//System.out.println(key + " - " + value);
 			fin.put(key, value);
-		}
-		
-		
-		return null;		
+		}		
+		return fin;		
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -96,6 +95,7 @@ public class CopyUtils {
 		//constuctor = ourClass.getDeclaredConstructor(null);
 		Object[] objParams = new Object[constuctor.getParameterTypes().length];
 		for(int i = 0; i < constuctor.getParameterTypes().length; i++){
+			//System.out.println(constuctor.getParameterTypes()[i].toString());
 			if(constuctor.getParameterTypes()[i].toString().equals("int") ||
 					constuctor.getParameterTypes()[i].toString().toString().equals("double") ||
 					constuctor.getParameterTypes()[i].toString().toString().equals("float") ||

@@ -68,9 +68,12 @@ public class TestCopyUtils {
 		firstHashMap.put("Third", 3);		
 		HashMap<String, Integer> secondHashMap = CopyUtils.deepCopy(firstHashMap);
 		assertNotSame(firstHashMap, secondHashMap);
+		//System.out.println(firstHashMap.get("First"));
 		assertEquals(firstHashMap.get("First"), secondHashMap.get("First"));
 		assertNotSame(firstHashMap.get("First"), secondHashMap.get("First"));
+		assertEquals(firstHashMap.get("Second"), secondHashMap.get("Second"));
 		assertNotSame(firstHashMap.get("Second"), secondHashMap.get("Second"));
+		assertEquals(firstHashMap.get("Third"), secondHashMap.get("Third"));
 		assertNotSame(firstHashMap.get("Third"), secondHashMap.get("Third"));
 
 		
