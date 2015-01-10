@@ -7,6 +7,8 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CopyUtils {
 	
@@ -17,9 +19,12 @@ public class CopyUtils {
 			return (T) new String((String) obj);
 		}else if (obj instanceof ArrayList<?>) {
 			return (T) arrayListHandler((ArrayList<?>) obj);
-		}else if (obj instanceof Map<?, ?>){
-			System.out.println("sad");
+		}else if (obj instanceof HashMap<?, ?>){
 			return (T) mapHandler((Map<?, ?>) obj);
+		}else if (obj instanceof ConcurrentHashMap<?, ?>){
+			return (T) concurrentMapHandler((Map<?, ?>) obj);
+		}else if (obj instanceof TreeMap<?, ?>){
+			return (T) treeMapHandler((Map<?, ?>) obj);
 		}
 		
 		T finObj = null;
@@ -62,7 +67,7 @@ public class CopyUtils {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private static <K, V> Map<K, V> mapHandler(Map<K, V> obj){
+	private static <K, V> Map<K, V> mapHandler(Map <K, V> obj){
 		Map<K, V> src = obj;
 		Map<K, V> fin = new HashMap<K, V>();
 		for(Map.Entry entry:src.entrySet()){
@@ -73,6 +78,34 @@ public class CopyUtils {
 		}		
 		return fin;		
 	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private static <K, V> Map<K, V> concurrentMapHandler(Map<K, V> obj){
+		Map<K, V> src = obj;
+		Map<K, V> fin = new ConcurrentHashMap<K, V>();
+		for(Map.Entry entry:src.entrySet()){
+			K key = (K) CopyUtils.deepCopy(entry.getKey());
+			V value = (V) CopyUtils.deepCopy(entry.getValue());
+			//System.out.println(key + " - " + value);
+			fin.put(key, value);
+		}		
+		return fin;		
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private static <K, V> Map<K, V> treeMapHandler(Map<K, V> obj){
+		Map<K, V> src = obj;
+		Map<K, V> fin = new TreeMap<K, V>();
+		for(Map.Entry entry:src.entrySet()){
+			K key = (K) CopyUtils.deepCopy(entry.getKey());
+			V value = (V) CopyUtils.deepCopy(entry.getValue());
+			//System.out.println(key + " - " + value);
+			fin.put(key, value);
+		}		
+		return fin;	
+	}
+
+
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static Constructor getCompliteConstructor(Class ourClass) throws NoSuchMethodException, SecurityException{
