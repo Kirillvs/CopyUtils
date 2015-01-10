@@ -78,8 +78,8 @@ public class CopyUtils {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static Constructor getCompliteConstructor(Class ourClass) throws NoSuchMethodException, SecurityException{
 		Constructor constructor = null;
-		Class[] params = new Class[ourClass.getConstructors()[0].getParameterCount()];
-		for(int i = 0; i < ourClass.getConstructors()[0].getParameterCount(); i++){
+		Class[] params = new Class[ourClass.getConstructors()[0].getParameterTypes().length];
+		for(int i = 0; i < ourClass.getConstructors()[0].getParameterTypes().length; i++){
 			params[i] = ourClass.getConstructors()[0].getParameterTypes()[i];
 			//System.out.println(i + " -> " + params[i]);
 		}
@@ -94,17 +94,16 @@ public class CopyUtils {
 		constuctor = ourClass.getConstructors()[0];
 		constuctor.setAccessible(true);
 		//constuctor = ourClass.getDeclaredConstructor(null);
-		//Test
-		Object[] objParams = new Object[constuctor.getParameterCount()];
-		for(int i = 0; i < constuctor.getParameterCount(); i++){
-			if(constuctor.getParameters()[i].getType().toString().equals("int") ||
-					constuctor.getParameters()[i].getType().toString().equals("double") ||
-					constuctor.getParameters()[i].getType().toString().equals("float") ||
-					constuctor.getParameters()[i].getType().toString().equals("byte") ||
-					constuctor.getParameters()[i].getType().toString().equals("char") || 
-					constuctor.getParameters()[i].getType().toString().equals("long")){
+		Object[] objParams = new Object[constuctor.getParameterTypes().length];
+		for(int i = 0; i < constuctor.getParameterTypes().length; i++){
+			if(constuctor.getParameterTypes()[i].toString().equals("int") ||
+					constuctor.getParameterTypes()[i].toString().toString().equals("double") ||
+					constuctor.getParameterTypes()[i].toString().toString().equals("float") ||
+					constuctor.getParameterTypes()[i].toString().toString().equals("byte") ||
+					constuctor.getParameterTypes()[i].toString().toString().equals("char") || 
+					constuctor.getParameterTypes()[i].toString().toString().equals("long")){
 				objParams[i] = 0;
-			}else if(constuctor.getParameters()[i].getType().toString().equals("boolean")){
+			}else if(constuctor.getParameterTypes()[i].toString().toString().equals("boolean")){
 				objParams[i] = false;
 			}else{
 				objParams[i] = null;
