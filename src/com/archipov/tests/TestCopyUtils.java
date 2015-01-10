@@ -1,11 +1,12 @@
 package com.archipov.tests;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
 import static org.hamcrest.core.IsNot.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -100,12 +101,29 @@ public class TestCopyUtils {
 		assertNotSame(firstTreeMap.get("Sixty"), secondTreeMap.get("Sixty"));
 
 		//7. LinkedList
+		LinkedList<String> firstLinkedList = new LinkedList<>();
+		firstLinkedList.add("first");
+		firstLinkedList.add("second");
+		firstLinkedList.add("third");
+		LinkedList<String> secondLinkedList = CopyUtils.deepCopy(firstLinkedList);
+		assertNotSame(firstLinkedList, secondLinkedList);
+		assertEquals(firstLinkedList.get(0), secondLinkedList.get(0));
+		assertNotSame(firstLinkedList.get(0), secondLinkedList.get(0));
+		assertEquals(firstLinkedList.get(1), secondLinkedList.get(1));
+		assertNotSame(firstLinkedList.get(1), secondLinkedList.get(1));
+		assertEquals(firstLinkedList.get(2), secondLinkedList.get(2));
+		assertNotSame(firstLinkedList.get(2), secondLinkedList.get(2));
+
 		//8. HashSet
-		//9. Set Map
-		//10. Collection
-
-
-
+		HashSet<String> firstHashSet = new HashSet<>();
+		firstHashSet.add("firstSet!!!");
+		firstHashSet.add("secondSet!!!");
+		HashSet<String> secondHashSet = CopyUtils.deepCopy(firstHashSet);
+		assertNotSame(firstHashSet, secondHashSet);
+		assertEquals(firstHashSet.toArray()[0], secondHashSet.toArray()[0]);
+		assertNotSame(firstHashSet.toArray()[0], secondHashSet.toArray()[0]);
+		assertEquals(firstHashSet.toArray()[1], secondHashSet.toArray()[1]);
+		assertNotSame(firstHashSet.toArray()[1], secondHashSet.toArray()[1]);	
 		
     }
 

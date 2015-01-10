@@ -6,6 +6,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,6 +27,10 @@ public class CopyUtils {
 			return (T) concurrentMapHandler((Map<?, ?>) obj);
 		}else if (obj instanceof TreeMap<?, ?>){
 			return (T) treeMapHandler((Map<?, ?>) obj);
+		}else if (obj instanceof LinkedList<?>){
+			return (T) linkedListHandler((LinkedList<?>) obj);
+		}else if (obj instanceof HashSet<?>){
+			return (T) hashSetHandler((HashSet<?>) obj);
 		}
 		
 		T finObj = null;
@@ -32,7 +38,6 @@ public class CopyUtils {
 		rezClass.cast(finObj);
 		try {
 			Constructor<T> constructor = getCompliteConstructor(rezClass);
-			//Object[] args = {5, "five", false};
 			
 			finObj = (T) constructor.newInstance(getParamsObjForConstructor(rezClass));
 			copyFields(rezClass, obj, finObj);
@@ -50,7 +55,6 @@ public class CopyUtils {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return finObj;
@@ -104,7 +108,26 @@ public class CopyUtils {
 		}		
 		return fin;	
 	}
-
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private static LinkedList<?> linkedListHandler(LinkedList<?> obj) {
+		LinkedList srcList = obj;
+		LinkedList finList = new LinkedList<>();
+		for(int i = 0; i < srcList.size(); i ++){
+			finList.add(CopyUtils.deepCopy(srcList.get(i)));
+		}
+		return finList;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private static HashSet<?> hashSetHandler(HashSet<?> obj) {
+		HashSet srcList = obj;
+		HashSet finList = new HashSet<>();
+		for(Object o : srcList){
+			finList.add(CopyUtils.deepCopy(o));
+		}
+		return finList;
+	}
 
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
