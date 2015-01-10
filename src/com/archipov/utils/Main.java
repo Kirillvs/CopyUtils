@@ -1,11 +1,5 @@
 package com.archipov.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Main {
 
@@ -23,9 +17,8 @@ public class Main {
 		firstClass.printData();
 		secondClass.printData();
 		System.out.println("");	
-		LinkedList<Integer> asd = new LinkedList<>();
-		asd.add(2);
-		System.out.println(asd instanceof Map);
+		
+		
 	}
 
 }
