@@ -94,6 +94,7 @@ public class CopyUtils {
 		constuctor = ourClass.getConstructors()[0];
 		constuctor.setAccessible(true);
 		//constuctor = ourClass.getDeclaredConstructor(null);
+		//Test
 		Object[] objParams = new Object[constuctor.getParameterCount()];
 		for(int i = 0; i < constuctor.getParameterCount(); i++){
 			if(constuctor.getParameters()[i].getType().toString().equals("int") ||
