@@ -6,7 +6,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		
-		TestClass firstClass = new TestClass(50, "ֿÿעüהוסÿע", true);
+		/*TestClass firstClass = new TestClass(50, "ֿÿעüהוסÿע", true);
 
 		TestClass secondClass;
 		secondClass = CopyUtils.deepCopy(firstClass);
@@ -17,7 +17,7 @@ public class Main {
 		firstClass.printData();
 		secondClass.printData();
 		System.out.println("");	
-		
+		*/
 		
 	}
 

@@ -174,7 +174,7 @@ public class CopyUtils {
 		for(int i = 0; i < fields.length; i++){
 			fields[i].setAccessible(true);
 			Field modField = Field.class.getDeclaredField("modifiers");
-			//System.out.println("------>>>>>>>>> " + modField.getName() + "___" );
+			System.out.println("------>>>>>>>>> " + fields[i]);
 			modField.setAccessible(true);
 			modField.setInt(fields[i], fields[i].getModifiers() & ~Modifier.FINAL);
 			fields[i].set(finObj, fields[i].get(srcObj));
@@ -188,6 +188,6 @@ public class CopyUtils {
 		Field modifiersField = Field.class.getDeclaredField("modifiers");
 		modifiersField.setAccessible(true);
 		modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-		field.set(null, newValue);
+		field.set(null, newValue);		
 	}
 }

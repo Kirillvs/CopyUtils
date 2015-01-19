@@ -21,7 +21,7 @@ public class TestCopyUtils {
 	
 	
 	@Test
-	public void testDeepCopy() {
+	public void testSimpleAndEmbededObjectsUsingDeepCopy() {
 		
 		//1. Проверка копирования объектов специального тестового класса
 		TestClass srcTestClass = new TestClass(15, "src", false);
