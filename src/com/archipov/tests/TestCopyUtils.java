@@ -12,6 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.Test;
 
+import com.archipov.tests.classes.ComplexClass;
+import com.archipov.tests.classes.SecondComplexObject;
 import com.archipov.utils.CopyUtils;
 import com.archipov.utils.TestClass;
 
@@ -126,5 +128,18 @@ public class TestCopyUtils {
 		assertNotSame(firstHashSet.toArray()[1], secondHashSet.toArray()[1]);	
 		
     }
+	
+	@Test
+	public void testComplexObjectsUsingDeepCopyMethod(){
+		ComplexClass q1 = new ComplexClass();
+		//q1.printID();
+		ComplexClass w1 = CopyUtils.deepCopy(q1);
+		//w1.printID();
+		
+		assertEquals(q1.toString(), w1.toString());
+		assertEquals(q1.getChild().toString(), w1.getChild().toString());
+		assertNotSame(q1, w1);
+		assertNotSame(q1.getChild(), w1.getChild());
+	}
 
 }
