@@ -19,6 +19,8 @@ public class CopyUtils {
 	public static <T>T deepCopy(T obj){
 		if(obj instanceof String){
 			return (T) new String((String) obj);
+		}else if (obj instanceof Integer) {
+			return (T) new Integer((Integer) obj);
 		}else if (obj instanceof ArrayList<?>) {
 			return (T) arrayListHandler((ArrayList<?>) obj);
 		}else if (obj instanceof HashMap<?, ?>){
@@ -152,14 +154,14 @@ public class CopyUtils {
 		Object[] objParams = new Object[constuctor.getParameterTypes().length];
 		for(int i = 0; i < constuctor.getParameterTypes().length; i++){
 			//System.out.println(constuctor.getParameterTypes()[i].toString());
-			if(constuctor.getParameterTypes()[i].toString().equals("int") ||
-					constuctor.getParameterTypes()[i].toString().toString().equals("double") ||
-					constuctor.getParameterTypes()[i].toString().toString().equals("float") ||
-					constuctor.getParameterTypes()[i].toString().toString().equals("byte") ||
-					constuctor.getParameterTypes()[i].toString().toString().equals("char") || 
-					constuctor.getParameterTypes()[i].toString().toString().equals("long")){
+			if(constuctor.getParameterTypes()[i].toString().equalsIgnoreCase("int") ||
+					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("double") ||
+					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("float") ||
+					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("byte") ||
+					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("char") ||
+					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("long")){
 				objParams[i] = 0;
-			}else if(constuctor.getParameterTypes()[i].toString().toString().equals("boolean")){
+			}else if(constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("boolean")){
 				objParams[i] = false;
 			}else{
 				objParams[i] = null;
@@ -176,8 +178,22 @@ public class CopyUtils {
 			Field modField = Field.class.getDeclaredField("modifiers");
 			modField.setAccessible(true);
 			modField.setInt(fields[i], fields[i].getModifiers() & ~Modifier.FINAL);
-			fields[i].set(finObj, fields[i].get(srcObj));
-			System.out.println(fields[i].getName() + "------>>>>>>>>> " + fields[i].get(srcObj));
+			if(fields[i].getType().toString().equalsIgnoreCase("int") ||
+					fields[i].getType().toString().equalsIgnoreCase("double") ||
+					fields[i].getType().toString().equalsIgnoreCase("float") ||
+					fields[i].getType().toString().equalsIgnoreCase("byte") ||
+					fields[i].getType().toString().equalsIgnoreCase("char") || 
+					fields[i].getType().toString().equalsIgnoreCase("boolean") ||
+					//fields[i].getType().toString().equalsIgnoreCase("class java.lang.String") ||
+					//fields[i].getType().toString().equalsIgnoreCase("class java.lang.Integer") ||
+					fields[i].getType().toString().equalsIgnoreCase("class java.lang.Class") ||
+					fields[i].getType().toString().equalsIgnoreCase("long")){
+				fields[i].set(finObj, fields[i].get(srcObj));
+			}else{
+				System.out.println(fields[i].getType().toString() + "------>>>>>>>>> " + fields[i].get(srcObj));
+				//fields[i].set(finObj, fields[i].get(srcObj));
+				fields[i].set(finObj, CopyUtils.deepCopy(fields[i].get(srcObj)));
+			}
 		}
 	}
 	
