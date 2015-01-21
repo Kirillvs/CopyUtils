@@ -290,9 +290,9 @@ public class CopyUtils {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static Constructor getCompliteConstructor(Class ourClass) throws NoSuchMethodException, SecurityException{
 		Constructor constructor = null;
-		Class[] params = new Class[ourClass.getConstructors()[0].getParameterTypes().length];
-		for(int i = 0; i < ourClass.getConstructors()[0].getParameterTypes().length; i++){
-			params[i] = ourClass.getConstructors()[0].getParameterTypes()[i];
+		Class[] params = new Class[ourClass.getDeclaredConstructors()[0].getParameterTypes().length];
+		for(int i = 0; i < ourClass.getDeclaredConstructors()[0].getParameterTypes().length; i++){
+			params[i] = ourClass.getDeclaredConstructors()[0].getParameterTypes()[i];
 			//System.out.println(i + " -> " + params[i]);
 		}
 		constructor = ourClass.getConstructor(params);
@@ -303,7 +303,7 @@ public class CopyUtils {
 	@SuppressWarnings("rawtypes")
 	private static Object[] getParamsObjForConstructor(Class ourClass) throws NoSuchMethodException, SecurityException{
 		Constructor constuctor = null;
-		constuctor = ourClass.getConstructors()[0];
+		constuctor = ourClass.getDeclaredConstructors()[0];
 		constuctor.setAccessible(true);
 		//constuctor = ourClass.getDeclaredConstructor(null);
 		Object[] objParams = new Object[constuctor.getParameterTypes().length];
