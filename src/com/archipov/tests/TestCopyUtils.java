@@ -137,7 +137,7 @@ public class TestCopyUtils {
 		//w1.printID();
 		
 		assertEquals(q1.toString(), w1.toString());
-		assertEquals(q1.getChild().toString(), w1.getChild().toString());
+		assertEquals(q1.getChild().printID(), w1.getChild().printID());
 		assertNotSame(q1, w1);
 		assertNotSame(q1.getChild(), w1.getChild());
 	}
