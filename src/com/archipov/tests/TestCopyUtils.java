@@ -13,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Test;
 
 import com.archipov.tests.classes.ComplexClass;
-import com.archipov.tests.classes.SecondComplexObject;
 import com.archipov.utils.CopyUtils;
 import com.archipov.utils.TestClass;
 
@@ -125,8 +124,18 @@ public class TestCopyUtils {
 		assertEquals(firstHashSet.toArray()[0], secondHashSet.toArray()[0]);
 		assertNotSame(firstHashSet.toArray()[0], secondHashSet.toArray()[0]);
 		assertEquals(firstHashSet.toArray()[1], secondHashSet.toArray()[1]);
-		assertNotSame(firstHashSet.toArray()[1], secondHashSet.toArray()[1]);	
+		assertNotSame(firstHashSet.toArray()[1], secondHashSet.toArray()[1]);
 		
+		//9 []		
+		int[] intOne = new int[3];
+		intOne[0] = 5;
+		intOne[1] = 6;
+		intOne[2] = 7;
+		int[] intTwo = CopyUtils.deepCopy(intOne);
+		assertEquals(intOne[0], intTwo[0]);
+		assertEquals(intOne[1], intTwo[1]);
+		assertEquals(intOne[2], intTwo[2]);
+		assertNotSame(intOne, intTwo);
     }
 	
 	@Test
@@ -140,6 +149,19 @@ public class TestCopyUtils {
 		assertEquals(q1.getChild().printID(), w1.getChild().printID());
 		assertNotSame(q1, w1);
 		assertNotSame(q1.getChild(), w1.getChild());
+	}
+	
+	@SuppressWarnings("unused")
+	@Test
+	public void testCrashNullPointerUsingDeepCopyMethod(){
+		boolean crashNullPointerHappen = false;
+		String test;
+		try{
+			test = CopyUtils.deepCopy(null);
+		}catch(NullPointerException npe){
+			crashNullPointerHappen = true;
+		}
+		assertFalse(crashNullPointerHappen);
 	}
 
 }

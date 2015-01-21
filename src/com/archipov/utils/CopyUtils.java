@@ -17,10 +17,26 @@ public class CopyUtils {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T>T deepCopy(T obj){
-		if(obj instanceof String){
+		if(obj == null){
+			return null;
+		}else if(obj instanceof String){
 			return (T) new String((String) obj);
 		}else if (obj instanceof Integer) {
 			return (T) new Integer((Integer) obj);
+		}else if (obj instanceof Double) {
+			return (T) new Double((Double) obj);
+		}else if (obj instanceof Byte) {
+			return (T) new Byte((Byte) obj);
+		}else if (obj instanceof Short) {
+			return (T) new Short((Short) obj);
+		}else if (obj instanceof Long) {
+			return (T) new Long((Long) obj);
+		}else if (obj instanceof Float) {
+			return (T) new Float((Float) obj);
+		}else if (obj instanceof Character) {
+			return (T) new Character((Character) obj);
+		}else if (obj instanceof Boolean) {
+			return (T) new Boolean((Boolean) obj);
 		}else if (obj instanceof ArrayList<?>) {
 			return (T) arrayListHandler((ArrayList<?>) obj);
 		}else if (obj instanceof HashMap<?, ?>){
@@ -33,6 +49,8 @@ public class CopyUtils {
 			return (T) linkedListHandler((LinkedList<?>) obj);
 		}else if (obj instanceof HashSet<?>){
 			return (T) hashSetHandler((HashSet<?>) obj);
+		}else if (isPrimitiveArray(obj)){
+			return getPrimitiveArray(obj);
 		}
 		
 		T finObj = null;
@@ -50,7 +68,8 @@ public class CopyUtils {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-		} catch (InvocationTargetException e) {
+		} catch (InvocationTargetException e) {	
+			System.out.println(e.getCause());
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
@@ -65,7 +84,9 @@ public class CopyUtils {
 	//ѕредотвращаем бесконечную рекурсию и StackOverFlowError
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static <T>T deepCopy(T obj, Object parrent){
-		if(obj instanceof String){
+		if(obj == null){
+			return null;
+		}else if(obj instanceof String){
 			return (T) new String((String) obj);
 		}else if (obj instanceof Integer) {
 			return (T) new Integer((Integer) obj);
@@ -179,7 +200,76 @@ public class CopyUtils {
 		}
 		return finList;
 	}
-
+	
+	private static boolean isPrimitiveArray(Object obj){
+		if(obj instanceof byte[] ||
+			obj instanceof short[] ||
+			obj instanceof int[] ||
+			obj instanceof long[] ||
+			obj instanceof float[] ||
+			obj instanceof double[] ||
+			obj instanceof char[] ||
+			obj instanceof boolean[]){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static <T>T getPrimitiveArray(T obj){
+		if(obj instanceof int[]){
+			int[] arr = new int[((int[]) obj).length];
+			for(int i = 0; i < ((int[]) obj).length; i++){
+				arr[i] = ((int[]) obj)[i];
+			}
+			return (T) arr;
+		}else if(obj instanceof byte[]){
+			byte[] arr = new byte[((byte[]) obj).length];
+			for(int i = 0; i < ((byte[]) obj).length; i++){
+				arr[i] = ((byte[]) obj)[i];
+			}
+			return (T) arr;
+		}else if(obj instanceof short[]){
+			short[] arr = new short[((short[]) obj).length];
+			for(int i = 0; i < ((short[]) obj).length; i++){
+				arr[i] = ((short[]) obj)[i];
+			}
+			return (T) arr;
+		}else if(obj instanceof long[]){
+			long[] arr = new long[((long[]) obj).length];
+			for(int i = 0; i < ((long[]) obj).length; i++){
+				arr[i] = ((long[]) obj)[i];
+			}
+			return (T) arr;
+		}else if(obj instanceof float[]){
+			float[] arr = new float[((float[]) obj).length];
+			for(int i = 0; i < ((float[]) obj).length; i++){
+				arr[i] = ((float[]) obj)[i];
+			}
+			return (T) arr;
+		}else if(obj instanceof double[]){
+			double[] arr = new double[((double[]) obj).length];
+			for(int i = 0; i < ((double[]) obj).length; i++){
+				arr[i] = ((double[]) obj)[i];
+			}
+			return (T) arr;
+		}else if(obj instanceof char[]){
+			char[] arr = new char[((char[]) obj).length];
+			for(int i = 0; i < ((char[]) obj).length; i++){
+				arr[i] = ((char[]) obj)[i];
+			}
+			return (T) arr;
+		}else if(obj instanceof boolean[]){
+			boolean[] arr = new boolean[((boolean[]) obj).length];
+			for(int i = 0; i < ((boolean[]) obj).length; i++){
+				arr[i] = ((boolean[]) obj)[i];
+			}
+			return (T) arr;
+		}
+		return null;
+	}
+ 
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static Constructor getCompliteConstructor(Class ourClass) throws NoSuchMethodException, SecurityException{
@@ -233,9 +323,7 @@ public class CopyUtils {
 					fields[i].getType().toString().equalsIgnoreCase("byte") ||
 					fields[i].getType().toString().equalsIgnoreCase("char") || 
 					fields[i].getType().toString().equalsIgnoreCase("boolean") ||
-					//fields[i].getType().toString().equalsIgnoreCase("class java.lang.String") ||
-					//fields[i].getType().toString().equalsIgnoreCase("class java.lang.Integer") ||
-					fields[i].getType().toString().equalsIgnoreCase("class java.lang.Class") ||
+					fields[i].getType().toString().equalsIgnoreCase("short") ||
 					fields[i].getType().toString().equalsIgnoreCase("long")){
 				fields[i].set(finObj, fields[i].get(srcObj));
 			}else{
@@ -261,9 +349,7 @@ public class CopyUtils {
 					fields[i].getType().toString().equalsIgnoreCase("byte") ||
 					fields[i].getType().toString().equalsIgnoreCase("char") || 
 					fields[i].getType().toString().equalsIgnoreCase("boolean") ||
-					//fields[i].getType().toString().equalsIgnoreCase("class java.lang.String") ||
-					//fields[i].getType().toString().equalsIgnoreCase("class java.lang.Integer") ||
-					fields[i].getType().toString().equalsIgnoreCase("class java.lang.Class") ||
+					fields[i].getType().toString().equalsIgnoreCase("short") ||
 					fields[i].getType().toString().equalsIgnoreCase("long")){
 				fields[i].set(finObj, fields[i].get(srcObj));
 			}else{
