@@ -3,6 +3,8 @@ package com.archipov.tests;
 import static org.junit.Assert.*;
 import static org.hamcrest.core.IsNot.*;
 
+import java.io.ByteArrayInputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -163,5 +165,19 @@ public class TestCopyUtils {
 		}
 		assertFalse(crashNullPointerHappen);
 	}
+	
+	@Test
+	public void testCrashInvocationTargetExceptionUsingDeepCopyMethod(){
+		//Ёксепшн ловитс€ в DeepCopy и не ловитс€ тут, но сам метод крашитс€
+		boolean crashInvocationTargetException = false;
+		byte[] ba = {15, 25, 33, 44};
+		ByteArrayInputStream test = new ByteArrayInputStream(ba);
+		ByteArrayInputStream finTest;
+		finTest = CopyUtils.deepCopy(test);
+		//assertFalse(crashInvocationTargetException);
+	}
+
+	
+	
 
 }

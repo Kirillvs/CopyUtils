@@ -90,6 +90,20 @@ public class CopyUtils {
 			return (T) new String((String) obj);
 		}else if (obj instanceof Integer) {
 			return (T) new Integer((Integer) obj);
+		}else if (obj instanceof Double) {
+			return (T) new Double((Double) obj);
+		}else if (obj instanceof Byte) {
+			return (T) new Byte((Byte) obj);
+		}else if (obj instanceof Short) {
+			return (T) new Short((Short) obj);
+		}else if (obj instanceof Long) {
+			return (T) new Long((Long) obj);
+		}else if (obj instanceof Float) {
+			return (T) new Float((Float) obj);
+		}else if (obj instanceof Character) {
+			return (T) new Character((Character) obj);
+		}else if (obj instanceof Boolean) {
+			return (T) new Boolean((Boolean) obj);
 		}else if (obj instanceof ArrayList<?>) {
 			return (T) arrayListHandler((ArrayList<?>) obj);
 		}else if (obj instanceof HashMap<?, ?>){
@@ -102,6 +116,8 @@ public class CopyUtils {
 			return (T) linkedListHandler((LinkedList<?>) obj);
 		}else if (obj instanceof HashSet<?>){
 			return (T) hashSetHandler((HashSet<?>) obj);
+		}else if (isPrimitiveArray(obj)){
+			return getPrimitiveArray(obj);
 		}
 		
 		T finObj = null;
@@ -293,6 +309,7 @@ public class CopyUtils {
 		Object[] objParams = new Object[constuctor.getParameterTypes().length];
 		for(int i = 0; i < constuctor.getParameterTypes().length; i++){
 			//System.out.println(constuctor.getParameterTypes()[i].toString());
+			System.out.println(isPrimitiveArray(constuctor.getParameterTypes()[i]));
 			if(constuctor.getParameterTypes()[i].toString().equalsIgnoreCase("int") ||
 					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("double") ||
 					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("float") ||
@@ -302,6 +319,9 @@ public class CopyUtils {
 				objParams[i] = 0;
 			}else if(constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("boolean")){
 				objParams[i] = false;
+			}else if(isPrimitiveArray(constuctor.getParameterTypes()[i])){
+				System.out.println("111111111111111111");
+				//objParams[i] = null;
 			}else{
 				objParams[i] = null;
 			}
