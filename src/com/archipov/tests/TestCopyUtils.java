@@ -12,7 +12,9 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Categories.ExcludeCategory;
 
 import com.archipov.tests.classes.ComplexClass;
 import com.archipov.utils.CopyUtils;
@@ -166,7 +168,9 @@ public class TestCopyUtils {
 		assertFalse(crashNullPointerHappen);
 	}
 	
-	@Test
+	
+		
+	@Test(expected = InvocationTargetException.class)	
 	public void testCrashInvocationTargetExceptionUsingDeepCopyMethod(){
 		//Ёксепшн ловитс€ в DeepCopy и не ловитс€ тут, но сам метод крашитс€
 		boolean crashInvocationTargetException = false;
