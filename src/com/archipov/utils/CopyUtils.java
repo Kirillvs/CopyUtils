@@ -69,7 +69,7 @@ public class CopyUtils {
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {	
-			System.out.println(e.getCause());
+			//System.out.println(e.getCause());
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
@@ -217,6 +217,7 @@ public class CopyUtils {
 		return finList;
 	}
 	
+	
 	private static boolean isPrimitiveArray(Object obj){
 		if(obj instanceof byte[] ||
 			obj instanceof short[] ||
@@ -231,6 +232,23 @@ public class CopyUtils {
 			return false;
 		}
 	}
+	
+	//ѕерегруженный метод дл€ примитивов конструктора
+	private static boolean isPrimitiveArray(String type){
+		if(type.equals("byte[]") ||
+				type.equals("short[]") ||
+				type.equals("int[]") ||
+				type.equals("long[]") ||
+				type.equals("float[]") ||
+				type.equals("double[]") ||
+				type.equals("char[]") ||
+				type.equals("boolean[]")){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	
 	@SuppressWarnings("unchecked")
 	private static <T>T getPrimitiveArray(T obj){
@@ -285,6 +303,46 @@ public class CopyUtils {
 		}
 		return null;
 	}
+	
+	//ѕерегруженный метод дл€ конструктора
+	@SuppressWarnings("unchecked")
+	private static <T>T getPrimitiveArray(T obj, String type){
+		if(type.equals("int[]")){
+			int[] arr = new int[1];
+			arr[0] = 0;
+			return (T) arr;
+		}else if(type.equals("byte[]")){
+			byte[] arr = new byte[1];
+			arr[0] = 0;
+			return (T) arr;
+		}else if(type.equals("short[]")){
+			short[] arr = new short[1];
+			arr[0] = 0;
+			return (T) arr;
+		}else if(type.equals("long[]")){
+			long[] arr = new long[1];
+			arr[0] = 0;
+			return (T) arr;
+		}else if(type.equals("float[]")){
+			float[] arr = new float[1];
+			arr[0] = 0;
+			return (T) arr;
+		}else if(type.equals("double[]")){
+			double[] arr = new double[1];
+			arr[0] = 0;
+			return (T) arr;
+		}else if(type.equals("char[]")){
+			char[] arr = new char[1];
+			arr[0] = 0;
+			return (T) arr;
+		}else if(type.equals("boolean[]")){
+			boolean[] arr = new boolean[1];
+			arr[0] = false;
+			return (T) arr;
+		}
+		return null;
+	}
+
  
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -309,7 +367,9 @@ public class CopyUtils {
 		Object[] objParams = new Object[constuctor.getParameterTypes().length];
 		for(int i = 0; i < constuctor.getParameterTypes().length; i++){
 			//System.out.println(constuctor.getParameterTypes()[i].toString());
-			System.out.println(isPrimitiveArray(constuctor.getParameterTypes()[i]));
+			System.out.println(isPrimitiveArray(constuctor.getParameterTypes()[i].getTypeName()));
+			System.err.println(constuctor.getParameterTypes()[i].getTypeName());
+
 			if(constuctor.getParameterTypes()[i].toString().equalsIgnoreCase("int") ||
 					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("double") ||
 					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("float") ||
@@ -319,9 +379,9 @@ public class CopyUtils {
 				objParams[i] = 0;
 			}else if(constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("boolean")){
 				objParams[i] = false;
-			}else if(isPrimitiveArray(constuctor.getParameterTypes()[i])){
+			}else if(isPrimitiveArray(constuctor.getParameterTypes()[i].getTypeName())){
 				System.out.println("111111111111111111");
-				//objParams[i] = null;
+				objParams[i] = getPrimitiveArray(constuctor.getParameterTypes()[i]);
 			}else{
 				objParams[i] = null;
 			}
