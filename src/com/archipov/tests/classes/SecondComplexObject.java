@@ -11,7 +11,7 @@ public class SecondComplexObject {
 	}
 	
 	public String printID(){
-		System.out.println("Second obj - " + id + "l; ParrentFirst - " + parrentComplex.getID());
+		//System.out.println("Second obj - " + id + "l; ParrentFirst - " + parrentComplex.getID());
 		return "Second obj - " + id + "l; ParrentFirst - " + parrentComplex.getID();
 	}
 	

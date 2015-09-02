@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import static org.hamcrest.core.IsNot.*;
 
 import java.io.ByteArrayInputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,9 +11,7 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.experimental.categories.Categories.ExcludeCategory;
 
 import com.archipov.tests.classes.ComplexClass;
 import com.archipov.utils.CopyUtils;
@@ -170,7 +167,7 @@ public class TestCopyUtils {
 	
 	
 		
-	@Test(expected = InvocationTargetException.class)	
+	@Test
 	public void testCrashInvocationTargetExceptionUsingDeepCopyMethod(){
 		//Ёксепшн ловитс€ в DeepCopy и не ловитс€ тут, но сам метод крашитс€
 		boolean crashInvocationTargetException = false;
@@ -178,7 +175,20 @@ public class TestCopyUtils {
 		ByteArrayInputStream test = new ByteArrayInputStream(ba);
 		ByteArrayInputStream finTest;
 		finTest = CopyUtils.deepCopy(test);
-		//assertFalse(crashInvocationTargetException);
+		assertFalse(crashInvocationTargetException);
+	}
+	
+	@Test
+	public void testByteArrayInputStreamUsingDeepCopyMethod(){
+		byte[] ba = {15, 25, 33, 44};
+		ByteArrayInputStream test = new ByteArrayInputStream(ba);
+		ByteArrayInputStream finTest;
+		finTest = CopyUtils.deepCopy(test);
+		int c, d;
+		while(((c = finTest.read()) != -1) && ((d = test.read()) != 01)){
+			assertEquals(c, d);
+		}
+		assertNotSame(test, finTest);
 	}
 
 	

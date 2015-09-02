@@ -3,22 +3,7 @@ package com.archipov.utils;
 
 public class Main {
 
-	public static void main(String[] args) {
-		
-		
-		/*TestClass firstClass = new TestClass(50, "ֿÿעüהוסÿע", true);
-
-		TestClass secondClass;
-		secondClass = CopyUtils.deepCopy(firstClass);
-		firstClass.printData();
-		secondClass.printData();
-		secondClass.modification();
-		System.out.println("---------");
-		firstClass.printData();
-		secondClass.printData();
-		System.out.println("");	
-		*/
-		
+	public static void main(String[] args) {		
 	}
 
 }

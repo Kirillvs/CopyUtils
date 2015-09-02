@@ -11,7 +11,7 @@ public class ComplexClass {
 	}
 	
 	public void printID(){
-		System.out.println("First obj - " + id);
+		//System.out.println("First obj - " + id);
 		sco.printID();
 	}
 	
