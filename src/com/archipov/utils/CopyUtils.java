@@ -368,7 +368,7 @@ public class CopyUtils {
 		for(int i = 0; i < constuctor.getParameterTypes().length; i++){
 			//System.out.println(constuctor.getParameterTypes()[i].toString());
 			System.out.println(isPrimitiveArray(constuctor.getParameterTypes()[i].getTypeName()));
-			System.err.println(constuctor.getParameterTypes()[i].getTypeName());
+			System.err.println(constuctor.getParameterTypes()[i].getCanonicalName());
 
 			if(constuctor.getParameterTypes()[i].toString().equalsIgnoreCase("int") ||
 					constuctor.getParameterTypes()[i].toString().toString().equalsIgnoreCase("double") ||
@@ -381,7 +381,8 @@ public class CopyUtils {
 				objParams[i] = false;
 			}else if(isPrimitiveArray(constuctor.getParameterTypes()[i].getTypeName())){
 				System.out.println("111111111111111111");
-				objParams[i] = getPrimitiveArray(constuctor.getParameterTypes()[i]);
+				//objParams[i] = new byte[0];
+				objParams[i] = getPrimitiveArray(constuctor.getParameterTypes()[i], constuctor.getParameterTypes()[i].getCanonicalName());
 			}else{
 				objParams[i] = null;
 			}
