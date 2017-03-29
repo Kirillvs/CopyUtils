@@ -81,7 +81,7 @@ public class CopyUtils {
 		return finObj;
 	}
 	
-	//Предотвращаем бесконечную рекурсию и StackOverFlowError
+	//ГЏГ°ГҐГ¤Г®ГІГўГ°Г Г№Г ГҐГ¬ ГЎГҐГ±ГЄГ®Г­ГҐГ·Г­ГіГѕ Г°ГҐГЄГіГ°Г±ГЁГѕ ГЁ StackOverFlowError
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static <T>T deepCopy(T obj, Object parrent){
 		if(obj == null){
@@ -233,7 +233,7 @@ public class CopyUtils {
 		}
 	}
 	
-	//Перегруженный метод для примитивов конструктора
+	//ГЏГҐГ°ГҐГЈГ°ГіГ¦ГҐГ­Г­Г»Г© Г¬ГҐГІГ®Г¤ Г¤Г«Гї ГЇГ°ГЁГ¬ГЁГІГЁГўГ®Гў ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°Г 
 	private static boolean isPrimitiveArray(String type){
 		if(type.equals("byte[]") ||
 				type.equals("short[]") ||
@@ -304,7 +304,7 @@ public class CopyUtils {
 		return null;
 	}
 	
-	//Перегруженный метод для конструктора
+	//ГЏГҐГ°ГҐГЈГ°ГіГ¦ГҐГ­Г­Г»Г© Г¬ГҐГІГ®Г¤ Г¤Г«Гї ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°Г 
 	@SuppressWarnings("unchecked")
 	private static <T>T getPrimitiveArray(T obj, String type){
 		if(type.equals("int[]")){
@@ -415,7 +415,7 @@ public class CopyUtils {
 		}
 	}
 	
-	//Перегруженный метод для предотвращения бесконечной рекурсии
+	//ГЏГҐГ°ГҐГЈГ°ГіГ¦ГҐГ­Г­Г»Г© Г¬ГҐГІГ®Г¤ Г¤Г«Гї ГЇГ°ГҐГ¤Г®ГІГўГ°Г Г№ГҐГ­ГЁГї ГЎГҐГ±ГЄГ®Г­ГҐГ·Г­Г®Г© Г°ГҐГЄГіГ°Г±ГЁГЁ
 	@SuppressWarnings("rawtypes")
 	private static <T> void copyFields(Class ourClass, T srcObj, T finObj, Object parrent) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException{
 		Field[] fields = ourClass.getDeclaredFields();
@@ -448,7 +448,7 @@ public class CopyUtils {
 
 	
 	
-	//Взято со Stackoverflow http://stackoverflow.com/questions/3301635/change-private-static-final-field-using-java-reflection
+	//Г‚Г§ГїГІГ® Г±Г® Stackoverflow http://stackoverflow.com/questions/3301635/change-private-static-final-field-using-java-reflection
 	static void setFinalStaticField(Field field, Object newValue) throws Exception {
 		field.setAccessible(true);		
 		Field modifiersField = Field.class.getDeclaredField("modifiers");

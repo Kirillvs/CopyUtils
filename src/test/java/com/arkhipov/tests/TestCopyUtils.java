@@ -23,7 +23,7 @@ public class TestCopyUtils {
 	@Test
 	public void testSimpleAndEmbededObjectsUsingDeepCopy() {
 		
-		//1. Проверка копирования объектов специального тестового класса
+		//1. ГЏГ°Г®ГўГҐГ°ГЄГ  ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГї Г®ГЎГєГҐГЄГІГ®Гў Г±ГЇГҐГ¶ГЁГ Г«ГјГ­Г®ГЈГ® ГІГҐГ±ГІГ®ГўГ®ГЈГ® ГЄГ«Г Г±Г±Г 
 		TestClass srcTestClass = new TestClass(15, "src", false);
 		TestClass finTestClass = CopyUtils.deepCopy(srcTestClass);
 		assertEquals(srcTestClass.printData(), finTestClass.printData());
@@ -31,7 +31,7 @@ public class TestCopyUtils {
 		finTestClass.modification();		
 		assertNotEquals(srcTestClass.printData(), finTestClass.printData());
 		
-		//2. Проверка копирования объектов Integer
+		//2. ГЏГ°Г®ГўГҐГ°ГЄГ  ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГї Г®ГЎГєГҐГЄГІГ®Гў Integer
 		Integer firstInteger = 5;
 		Integer secondInteger = CopyUtils.deepCopy(firstInteger);
 		assertEquals(firstInteger, secondInteger);
@@ -39,7 +39,7 @@ public class TestCopyUtils {
 		secondInteger = secondInteger + 5;
 		assertNotEquals(firstInteger, secondInteger);
 		
-		//3 Проверка копирования объектов String
+		//3 ГЏГ°Г®ГўГҐГ°ГЄГ  ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГї Г®ГЎГєГҐГЄГІГ®Гў String
 		String firstString = "First";
 		String secondString = CopyUtils.deepCopy(firstString);
 		assertEquals(firstString, secondString);
@@ -47,7 +47,7 @@ public class TestCopyUtils {
 		secondString = "Second";
 		assertNotEquals(firstString, secondString);
 		
-		//4. Проверка копирования объектов ArrayList
+		//4. ГЏГ°Г®ГўГҐГ°ГЄГ  ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГї Г®ГЎГєГҐГЄГІГ®Гў ArrayList
 		ArrayList<String> firstArray = new ArrayList<>();
 		firstArray.add("first1");
 		firstArray.add("first2");
@@ -169,7 +169,7 @@ public class TestCopyUtils {
 		
 	@Test
 	public void testCrashInvocationTargetExceptionUsingDeepCopyMethod(){
-		//Эксепшн ловится в DeepCopy и не ловится тут, но сам метод крашится
+		//ГќГЄГ±ГҐГЇГёГ­ Г«Г®ГўГЁГІГ±Гї Гў DeepCopy ГЁ Г­ГҐ Г«Г®ГўГЁГІГ±Гї ГІГіГІ, Г­Г® Г±Г Г¬ Г¬ГҐГІГ®Г¤ ГЄГ°Г ГёГЁГІГ±Гї
 		boolean crashInvocationTargetException = false;
 		byte[] ba = {15, 25, 33, 44};
 		ByteArrayInputStream test = new ByteArrayInputStream(ba);
